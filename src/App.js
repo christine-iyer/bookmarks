@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 
 export default function App(){
+    
     const [bookmarks, setBookmarks] = useState([])
     const [completedBookmarks, setCompletedBookmarks] = useState([])
     const [newBookmark, setNewBookmark] = useState({
@@ -64,8 +65,8 @@ export default function App(){
                 body: JSON.stringify(subject)
             })
             const updatedBookmark = await response.json()
-            const completedBkMksCopy = [updatedBookmark, ...completedBookmarks]
-            setCompletedBookmarks(completedBkMksCopy)
+            const completedTDsCopy = [updatedBookmark, ...completedBookmarks]
+            setCompletedBookmarks(completedTDsCopy)
             bookmarksCopy.splice(index, 1)
             setBookmarks(bookmarksCopy)
         } catch (error) {
@@ -77,10 +78,10 @@ export default function App(){
         try{
             const response = await fetch('/api/bookmarks')
             const foundBookmarks = await response.json()
-            setBookmarks(foundBookmarks)
+            setBookmarks(foundBookmarks.reverse())
             const responseTwo = await fetch('/api/bookmarks/completed')
             const foundCompletedBookmarks = await responseTwo.json()
-            setCompletedBookmarks(foundCompletedBookmarks)
+            setCompletedBookmarks(foundCompletedBookmarks.reverse())
         } catch(error){
             console.error(error)
         }
@@ -102,7 +103,7 @@ export default function App(){
         {bookmarks.map(bookmark => {
             return(
                 <div key={bookmark._id}>{bookmark.title} 
-                    <button onClick={() => moveToCompleted(bookmark._id)  }>Complete</button>
+                    <button onClick={() => moveToCompleted(bookmark._id) }>Complete</button>
                 </div>
             )})
         }
@@ -116,3 +117,5 @@ export default function App(){
         }
     </>)
 }
+
+
