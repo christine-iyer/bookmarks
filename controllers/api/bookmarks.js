@@ -25,7 +25,7 @@ async function create(req, res, next){
      try {
           const bookmark = await Bookmark.create(req.body)
           console.log(bookmark)
-          res.locale.data.bookmark = bookmark
+          res.locals.data.bookmark = bookmark
           next()
      } catch (error) {
           res.status(400).json({ msg: error.message })

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import BookmarkList from './components/BookmarkList'
 
 
 export default function App(){
@@ -9,21 +10,26 @@ export default function App(){
         title: '',
         completed: false
     })
+    // const [newestBookmark, setNewestBookmark] = useState({
+    //     title: '',
+    //     completed: false
+    // })
 
     //createBookmarks
-    const createBookmark = async () => {
+    const createBookmark = () => {
         const body = {...newBookmark}
+        
         try {
-            const response = await fetch('/api/bookmarks', {
+            fetch('/api/bookmarks', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)
-            })
-            const createdBookmark = await response.json()
-            const bookmarksCopy = [createdBookmark,...bookmarks]
-            setBookmarks(bookmarksCopy)
+            }).then(response => response.json()).then(r => {console.log(r) 
+                addBookmarkToList(r)})
+            //const createdBookmark = await response.json()
+            
             setNewBookmark({
                 title: '',
                 completed: false
@@ -31,6 +37,13 @@ export default function App(){
         } catch (error) {   
             console.error(error)
         }
+    }
+
+    const addBookmarkToList = (newBookmark) => {
+        const bookmarksCopy = bookmarks.slice()
+        bookmarksCopy.push(newBookmark)
+        setBookmarks(bookmarksCopy)
+        console.log(bookmarks)
     }
     //deleteBookmarks
     const deleteBookmark = async (id) => {
