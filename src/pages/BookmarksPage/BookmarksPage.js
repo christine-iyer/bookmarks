@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import BookmarkList from './components/SignUpForm/BookmarkList/BookmarkList'
+import BookmarkList from '../../components/SignUpForm/BookmarkList/BookmarkList'
+// import BookmarkList from './components/BookmarkList'
 
 
-export default function App(){
+export default function BookmarksPage(){
     
     const [bookmarks, setBookmarks] = useState([])
     const [completedBookmarks, setCompletedBookmarks] = useState([])
