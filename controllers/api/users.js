@@ -1,64 +1,69 @@
-// /controllers/api/users.js
-
-const User = require('../../models/user')
+require('dotenv').config()
 const jwt = require('jsonwebtoken')
+const User = require('../../models/user')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 
-const checkToken = (req, res) => {
-  console.log('req.user', req.user)
-  res.json(req.exp)
-}
-
-const dataController = {
-  async create (req, res, next) {
-    try {
-      const user = await User.create(req.body)
-      // token will be a string
-      const token = createJWT(user)
-      // send back the token as a string
-      // which we need to account for
-      // in the client
-      res.locals.data.user = user
-      res.locals.data.token = token
-      next()
-    } catch (e) {
-      res.status(400).json(e)
-    }
-  },
-  async login (req, res, next) {
-    try {
-      const user = await User.findOne({ email: req.body.email })
-      if (!user) throw new Error()
-      const match = await bcrypt.compare(req.body.password, user.password)
-      if (!match) throw new Error()
-      res.locals.data.user = user
-      res.locals.data.token = createJWT(user)
-      next()
-    } catch {
-      res.status(400).json('Bad Credentials')
-    }
+const signUp = async (req, res, next) => {
+  try {
+    const user = await User.create(req.body)
+    const token = createJWT(user)
+    res.locals.data.user = user
+    res.locals.data.token = token
+    next()
+  } catch (error) {
+    res.status(400).json({ msg: error.message })
   }
 }
 
-const apiController = {
-  auth (req, res) {
-    res.json(res.locals.data.token)
+const login = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) throw new Error('user not found, email was invalid')
+    const password = crypto.createHmac('sha256', process.env.SECRET).update(req.body.password).digest('hex').split('').reverse().join('')
+    const match = await bcrypt.compare(password, user.password)
+    if (!match) throw new Error('Password did not match')
+    res.locals.data.user = user
+    res.locals.data.token = createJWT(user)
+    next()
+  } catch (error) {
+    res.status(400).json({ msg: error.message })
   }
+}
+
+const getBookmarksByUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: res.locals.data.email }).populate('bookmarks').sort('bookmarks.createdAt').exec()
+    const bookmarks = user.bookmarks
+    res.locals.data.bookmarks = bookmarks
+    next()
+  } catch (error) {
+    res.status(400).json({ msg: error.message })
+  }
+}
+
+const respondWithToken = (req, res) => {
+  res.json(res.locals.data.token)
+}
+
+const respondWithUser = (req, res) => {
+  res.json(res.locals.data.user)
+}
+
+const respondWithBookmarks = (req, res) => {
+  res.json(res.locals.data.bookmarks)
 }
 
 module.exports = {
-  checkToken,
-  dataController,
-  apiController
+  signUp,
+  login,
+  getBookmarksByUser,
+  respondWithToken,
+  respondWithBookmarks,
+  respondWithUser
 }
 
-/* -- Helper Functions -- */
-
+/* Helper Function */
 function createJWT (user) {
-  return jwt.sign(
-    // data payload
-    { user },
-    process.env.SECRET,
-    { expiresIn: '24h' }
-  )
+  return jwt.sign({ user }, process.env.SECRET, { expiresIn: '48h' })
 }

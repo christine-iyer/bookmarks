@@ -1,130 +1,168 @@
 import { useState, useEffect } from 'react'
-import BookmarkList from './components/SignUpForm/BookmarkList/BookmarkList'
+import Auth from './components/Auth/Auth'
+import CreateBookmark from './components/CreateBookmark/CreateBookmark'
+import BookmarkList from './components/BookmarkList/BookmarkList'
 
+export default function App () {
+  /*
+    Login, SignUp, CreateBookmark, ListBookmarksByUser, DeleteBookmark, UpdateBookmark
+    */
 
-export default function App(){
-    
-    const [bookmarks, setBookmarks] = useState([])
-    const [completedBookmarks, setCompletedBookmarks] = useState([])
-    const [newBookmark, setNewBookmark] = useState({
+  const handleChangeAuth = (event) => {
+    setCredentials({ ...credentials, [event.target.name]: event.target.value })
+  }
+  const handleChange = (event) => {
+    setBookmark({ ...bookmark, [event.target.name]: event.target.value })
+  }
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: '',
+    name: ''
+  })
+  const [bookmark, setBookmark] = useState({
+    title: '',
+    url: ''
+  })
+  const [bookmarks, setBookmarks] = useState([])
+
+  const [token, setToken] = useState('')
+  const login = async () => {
+    try {
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: credentials.email, password: credentials.password })
+      })
+      const tokenResponse = await response.json()
+      setToken(tokenResponse)
+      localStorage.setItem('token', JSON.stringify(tokenResponse))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const signUp = async () => {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...credentials })
+      })
+      const tokenResponse = await response.json()
+      setToken(tokenResponse)
+      localStorage.setItem('token', JSON.stringify(tokenResponse))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const createBookmark = async () => {
+    try {
+      const response = await fetch('/api/bookmarks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ ...bookmark })
+      })
+      const data = await response.json()
+      setBookmarks([data, ...bookmarks])
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setBookmark({
         title: '',
-        completed: false
-    })
-    
-    //createBookmarks
-    const createBookmark = () => {
-        const body = {...newBookmark}
-        
-        try {
-            fetch('/api/bookmarks', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            }).then(response => response.json()).then(r => {console.log(r) 
-                addBookmarkToList(r)})
-            //const createdBookmark = await response.json()
-            
-            setNewBookmark({
-                title: '',
-                completed: false
-            })
-        } catch (error) {   
-            console.error(error)
-        }
+        url: ''
+      })
     }
+  }
+  const listBookmarksByUser = async () => {
+    try {
+      const response = await fetch('/api/users/bookmarks', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+        }
+      })
+      const data = await response.json()
+      setBookmarks(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const deleteBookmark = async (id) => {
+    try {
+      const response = await fetch(`/api/bookmarks/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+      const bookmarksCopy = [...bookmarks]
+      const index = bookmarksCopy.findIndex(bookmark => id === bookmark._id)
+      bookmarksCopy.splice(index, 1)
+      setBookmarks(bookmarksCopy)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const updateBookmark = async (id, updatedData) => {
+    try {
+      const response = await fetch(`/api/bookmarks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedData)
+      })
+      const data = await response.json()
+      const bookmarksCopy = [...bookmarks]
+      const index = bookmarksCopy.findIndex(bookmark => id === bookmark._id)
+      bookmarksCopy[index] = { ...bookmarksCopy[index], ...updatedData }
+      setBookmarks(bookmarksCopy)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-    const addBookmarkToList = (newBookmark) => {
-        const bookmarksCopy = bookmarks.slice()
-        bookmarksCopy.push(newBookmark)
-        setBookmarks(bookmarksCopy)
-        console.log(bookmarks)
+  useEffect(() => {
+    const tokenData = localStorage.getItem('token')
+    if (tokenData && tokenData !== 'null' && tokenData !== 'undefined') {
+      listBookmarksByUser()
     }
-    //deleteBookmarks
-    const deleteBookmark = async (id) => {
-        try {
-            const index = completedBookmarks.findIndex((bookmark) => bookmark._id === id)
-            const completedBookmarksCopy = [...completedBookmarks]
-            const response = await fetch(`/api/bookmarks/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            await response.json()
-            completedBookmarksCopy.splice(index, 1)
-            setCompletedBookmarks(completedBookmarksCopy)
-        } catch (error) {
-            console.error(error)
-        }
+  }, [])
+
+  useEffect(() => {
+    const tokenData = localStorage.getItem('token')
+    if (tokenData && tokenData !== 'null' && tokenData !== 'undefined') {
+      setToken(JSON.parse(tokenData))
     }
-    //moveToCompleted
-    const moveToCompleted = async (id) => {
-        try {
-            const index = bookmarks.findIndex((bookmark) => bookmark._id === id)
-            const bookmarksCopy = [...bookmarks]
-            const subject = bookmarksCopy[index]
-            subject.completed = true 
-            const response = await fetch(`/api/bookmarks/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(subject)
-            })
-            const updatedBookmark = await response.json()
-            const completedTDsCopy = [updatedBookmark, ...completedBookmarks]
-            setCompletedBookmarks(completedTDsCopy)
-            bookmarksCopy.splice(index, 1)
-            setBookmarks(bookmarksCopy)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    //getBookmarks
-    const getBookmarks = async () => {
-        try{
-            const response = await fetch('/api/bookmarks')
-            const foundBookmarks = await response.json()
-            setBookmarks(foundBookmarks.reverse())
-            const responseTwo = await fetch('/api/bookmarks/completed')
-            const foundCompletedBookmarks = await responseTwo.json()
-            setCompletedBookmarks(foundCompletedBookmarks.reverse())
-        } catch(error){
-            console.error(error)
-        }
-    }
-    useEffect(() => {
-        getBookmarks()
-    }, [])
-    return(<>
-        Add Bookmark:<input type="text" 
-        value={newBookmark.title} 
-        onChange={(e) => {
-            setNewBookmark({...newBookmark, title: e.target.value})
-        }} 
-        onKeyDown={(e) => {
-            e.key === 'Enter' && createBookmark()
-        }}
-        />
-        <h3>Bookmarks</h3>
-        {bookmarks.map(bookmark => {
-            return(
-                <div key={bookmark._id}>{bookmark.title} 
-                    <button onClick={() => moveToCompleted(bookmark._id) }>Complete</button>
-                </div>
-            )})
-        }
-        <h3>Completed Bookmarks</h3>
-        {completedBookmarks.map(bookmark => {
-            return(
-                <div key={bookmark._id}>{bookmark.title} 
-                    <button onClick={() => deleteBookmark(bookmark._id) }>Delete</button>
-                </div>
-            )})
-        }
-    </>)
+  }, [])
+  return (
+    <>
+      <Auth
+        login={login}
+        credentials={credentials}
+        handleChangeAuth={handleChangeAuth}
+        signUp={signUp}
+      />
+      <CreateBookmark
+        createBookmark={createBookmark}
+        bookmark={bookmark}
+        handleChange={handleChange}
+      />
+      <BookmarkList
+        bookmarks={bookmarks}
+        deleteBookmark={deleteBookmark}
+        updateBookmark={updateBookmark}
+      />
+    </>
+  )
 }
-
-
