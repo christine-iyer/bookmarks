@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-
+import styles from './Bookmark.module.scss'
 export default function Bookmark ({
   bookmark,
   updateBookmark,
@@ -24,7 +24,7 @@ export default function Bookmark ({
           }}
           defaultValue={bookmark.title}
         />
-        <a href={bookmark.url} target='_blank' rel='noreferrer'> {bookmark.title}</a>
+        <a href={bookmark.url} target='_blank' rel='noreferrer'> {bookmark.url}</a>
         <button
           onClick={() => deleteBookmark(bookmark._id)}
         >
