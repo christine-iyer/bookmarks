@@ -55,6 +55,9 @@ const respondWithUser = (req, res) => {
 const respondWithBookmarks = (req, res) => {
   res.json(res.locals.data.bookmarks)
 }
+function logOut () {
+  localStorage.removeItem('token')
+}
 
 module.exports = {
   signUp,
@@ -62,7 +65,8 @@ module.exports = {
   getBookmarksByUser,
   respondWithToken,
   respondWithBookmarks,
-  respondWithUser
+  respondWithUser,
+  logOut
 }
 
 /* Helper Function */

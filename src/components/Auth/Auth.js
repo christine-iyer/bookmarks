@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Login from '../Login/Login'
 import SignUp from '../SignUp/SignUp'
+import Logout from '../Logout/Logout'
 import styles from './Auth.module.scss'
 
 
@@ -60,7 +61,7 @@ export default function Auth ({
                 }
               </>
         }
-
+<Logout />
     </>
   )
 }

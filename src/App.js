@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import Auth from './components/Auth/Auth'
 import CreateBookmark from './components/CreateBookmark/CreateBookmark'
 import BookmarkList from './components/BookmarkList/BookmarkList'
-
 export default function App () {
   /*
     Login, SignUp, CreateBookmark, ListBookmarksByUser, DeleteBookmark, UpdateBookmark
@@ -61,6 +60,10 @@ export default function App () {
     } finally {
       window.location.reload()
     }
+  }
+
+ function logOut () {
+    localStorage.removeItem('token')
   }
   const createBookmark = async () => {
     try {
@@ -136,6 +139,7 @@ export default function App () {
     }
   }
 
+
   useEffect(() => {
     const tokenData = localStorage.getItem('token')
     if (tokenData && tokenData !== 'null' && tokenData !== 'undefined') {
@@ -180,6 +184,7 @@ export default function App () {
         deleteBookmark={deleteBookmark}
         updateBookmark={updateBookmark}
       />
+
     </>
   )
 }

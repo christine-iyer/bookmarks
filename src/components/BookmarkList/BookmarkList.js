@@ -1,4 +1,5 @@
 import Bookmark from '../Bookmark/Bookmark'
+import Logout from '../Logout/Logout'
 
 export default function BookmarkList ({
   bookmarks,
@@ -6,6 +7,7 @@ export default function BookmarkList ({
   deleteBookmark
 }) {
   return (
+    <>
     <ul>
       {
             bookmarks.length
@@ -22,5 +24,7 @@ export default function BookmarkList ({
                 </>
         }
     </ul>
+    <Logout />
+    </>
   )
 }
