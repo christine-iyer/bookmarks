@@ -33,7 +33,7 @@ export default function Auth ({
     setToken(myToken)
   }, [])
   return (
-    <>
+    <div className= {styles.AuthDiv}>
       {
             user && user.name
               ? <h1 className={styles.h1}>Welcome {user.name.toUpperCase()}</h1>
@@ -62,6 +62,6 @@ export default function Auth ({
               </>
         }
 <Logout />
-    </>
+    </div>
   )
 }

@@ -156,7 +156,7 @@ export default function App () {
     }
   }, [])
   return (
-    <>
+    < div className={styles.App}>
     {
       token? 
       <button className={styles.button} onClick={() => {
@@ -187,6 +187,6 @@ export default function App () {
         updateBookmark={updateBookmark}
       />
 
-    </>
+    </div>
   )
 }
