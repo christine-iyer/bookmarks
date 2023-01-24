@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
-import Auth from './components/Auth/Auth'
-import CreateBookmark from './components/CreateBookmark/CreateBookmark'
-import BookmarkList from './components/BookmarkList/BookmarkList'
+import Auth from '../../components/Auth/Auth'
+import CreateBookmark from '../../components/CreateBookmark/CreateBookmark'
+import BookmarkList from '../../components/BookmarkList/BookmarkList'
+import styles from './App.module.scss'
+require('../..')
 export default function App () {
   /*
     Login, SignUp, CreateBookmark, ListBookmarksByUser, DeleteBookmark, UpdateBookmark
@@ -157,7 +159,7 @@ export default function App () {
     <>
     {
       token? 
-      <button onClick={() => {
+      <button className={styles.button} onClick={() => {
         localStorage.removeItem('token')
         window.location.reload()
       }}>

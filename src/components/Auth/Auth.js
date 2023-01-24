@@ -44,7 +44,7 @@ export default function Auth ({
                     setShowSignUp(!showSignUp)
                   }}
                 >
-                  {showSignUp ? 'Sign Up With A New Account Below or Click Here To Login As An Existing User' : 'Welcome Back, Login As An Existing User or Click Here To Sign Up With A New Account'}
+                  {showSignUp ? 'Sign Up  Below or Click Here To Login' : 'Welcome Back, Login or Click Here To Sign Up'}
                 </button>
                 {
                     showSignUp

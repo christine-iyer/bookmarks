@@ -8,8 +8,8 @@ export default function Bookmark ({
   const [showInput, setShowInput] = useState(false)
   const inputRef = useRef(null)
   return (
-    <>
-      <li>
+    <div className={styles.bookmark}>
+      <li className={styles.LItem}>
         <h4 onClick={() => setShowInput(!showInput)}>{bookmark.title}</h4>
         <input
           ref={inputRef}
@@ -26,11 +26,12 @@ export default function Bookmark ({
         />
         <a href={bookmark.url} target='_blank' rel='noreferrer'> {bookmark.title}</a>
         <button
+        className={styles.button}
           onClick={() => deleteBookmark(bookmark._id)}
         >
           Delete Me
         </button>
       </li>
-    </>
+    </div>
   )
 }

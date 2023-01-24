@@ -1,5 +1,6 @@
 import Bookmark from '../Bookmark/Bookmark'
-import Logout from '../Logout/Logout'
+import styles from './BookmarkList.module.scss'
+
 
 export default function BookmarkList ({
   bookmarks,
@@ -7,7 +8,7 @@ export default function BookmarkList ({
   deleteBookmark
 }) {
   return (
-    <>
+    <div   className={styles.DivList}>
     <ul>
       {
             bookmarks.length
@@ -24,7 +25,11 @@ export default function BookmarkList ({
                 </>
         }
     </ul>
-    <Logout />
-    </>
+    
+    </div>
+
+
+
+    
   )
 }

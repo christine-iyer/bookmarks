@@ -1,9 +1,13 @@
 .UserLogOut {
      font-size: 1.5vmin;
-     color: var(--text-light);
+     color: palevioletred;
      text-align: center;
+     
      }
      
      .UserLogOut .email {
        font-size: smaller;
+       border-radius: 10%;
+       color: palevioletred;
+       
      }

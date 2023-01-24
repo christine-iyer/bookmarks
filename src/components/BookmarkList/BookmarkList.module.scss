@@ -1,0 +1,17 @@
+
+.DivList {
+     margin-top: 40%;
+     list-style-type:none;
+     padding:0;
+     justify-content:flex-end;
+     display: flex;
+     flex-direction: column-reverse;
+     border-width: 2rem;
+     border-color: cadetblue;
+     background-color: aliceblue;
+     list-style: none;
+     transform: rotate(-270deg);
+     text-align: top;
+     position: relative;
+     // text-transform: rotate(-90deg);
+}

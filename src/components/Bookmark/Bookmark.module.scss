@@ -1,0 +1,23 @@
+.button {
+     background-color: blueviolet;
+     color: greenyellow;
+     height:5rem;
+     padding: 1rem;
+     font-size: 19px;
+     margin: 2rem;
+     border-radius: 10%;
+     text-align: center;
+     text-align: justify;
+     text-justify: inter-word;
+     word-wrap: break-word;
+     transform: rotate(-90deg);
+     
+}
+
+
+.LItem {
+     background-color:complement($color: #9da9e4);
+     border-style: double;
+     border-radius: 10%;
+     list-style: none;
+}
