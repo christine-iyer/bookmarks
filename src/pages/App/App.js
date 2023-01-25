@@ -157,6 +157,7 @@ export default function App () {
   }, [])
   return (
     < div className={styles.App}>
+      <header className={styles.header}>
     {
       token? 
       <button className={styles.button} onClick={() => {
@@ -176,6 +177,7 @@ export default function App () {
         setToken={setToken}
         token={token}
       />
+      </header>
       <CreateBookmark
         createBookmark={createBookmark}
         bookmark={bookmark}

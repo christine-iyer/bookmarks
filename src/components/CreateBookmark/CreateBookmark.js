@@ -5,8 +5,8 @@ export default function CreateBookmark ({
   handleChange
 }) {
   return (
-    <>
-      <h2>Create A Bookmark</h2>
+    <div className={styles.CreateBookmark}>
+      <h2 className={styles.NewBookmark}>Create A Bookmark</h2>
       <div className={styles.container}>
         <form 
           className={styles.form}
@@ -15,15 +15,15 @@ export default function CreateBookmark ({
             createBookmark()
           }}
         >
-          <div>
+          
           <label>Title<input type='text' value={bookmark.title} name='title' onChange={handleChange} placeholder='Title' /></label>
           <label>Url<input type='text' value={bookmark.url} name='url' onChange={handleChange} placeholder='URL' /></label>
-          </div>
+          
           <input className={styles.button} type='submit' value='Create Bookmark' />
         </form>
       </div>
      
-    </>
+    </div>
   )
 }
 

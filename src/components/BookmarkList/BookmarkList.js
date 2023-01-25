@@ -8,8 +8,8 @@ export default function BookmarkList ({
   deleteBookmark
 }) {
   return (
-    <div   className={styles.DivList}>
-    <ul>
+    <div   className={styles.div}>
+    <ul className={styles.index}>
       {
             bookmarks.length
               ? bookmarks.map(bookmark => (

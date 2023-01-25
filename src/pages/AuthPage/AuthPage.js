@@ -7,7 +7,7 @@ import Logout from '../../components/Logout/Logout';
 export default function AuthPage(props){
     return(
         <main>
-            <h1>Auth Page</h1>
+            <h1 className={styles.auth}>Auth Page</h1>
             <Auth />
             <Logout setUser={props.setUser}/>
 

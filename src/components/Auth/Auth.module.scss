@@ -1,17 +1,10 @@
 .button {
-     background-color: blueviolet;
-     color: white;
-     height:10rem;
-     padding: 1rem;
-     font-size: 19px;
-     margin: 2rem;
-     border-radius: 70%;
-     text-align: center;
-     text-align: justify;
-     text-justify: inter-word;
-     word-wrap: break-word;
-     
+   background-color: blueviolet;
 }
 .AuthDiv {
-     background-color: adjust-hue($color: #c8af6f, $degrees: 0);
+     display: flex;
+     background-color: white;
+     height: 35%;
+     margin-top: 1%;
+ 
 }

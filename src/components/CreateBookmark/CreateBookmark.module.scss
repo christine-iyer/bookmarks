@@ -9,6 +9,26 @@
      text-align: center;
      text-align: justify;
      text-justify: inter-word;
-     word-wrap: break-word;
+     display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
      
+}
+.NewBookmark{
+     height: 13%;
+     margin: 2rem;
+     padding: 2rem;
+     background-color: aliceblue;
+}
+
+.container {
+     align-items:center;
+     width: 80%; /* you could actually just change it to 0px */
+          margin: 100px auto;
+          background-color: var(--pink);
+          margin-left: 5%;
+}
+.CreateBookmark {
+     background-color: var(--blue);
+     width: 50%;
 }
