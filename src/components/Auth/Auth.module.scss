@@ -1,9 +1,10 @@
 .button {
-   background-color: blueviolet;
+   background-color: var(--text-light);
+   margin: 1rem;;
 }
 .AuthDiv {
      display: flex;
-     background-color: white;
+     background-color: var(--text-light);
      height: 35%;
      margin-top: 1%;
  

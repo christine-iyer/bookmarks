@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Header from '../../components/Header/Header'
 import Auth from '../../components/Auth/Auth'
 import CreateBookmark from '../../components/CreateBookmark/CreateBookmark'
 import BookmarkList from '../../components/BookmarkList/BookmarkList'
@@ -157,7 +158,7 @@ export default function App () {
   }, [])
   return (
     < div className={styles.App}>
-      <header className={styles.header}>
+      <Header />
     {
       token? 
       <button className={styles.button} onClick={() => {
@@ -177,7 +178,7 @@ export default function App () {
         setToken={setToken}
         token={token}
       />
-      </header>
+      
       <CreateBookmark
         createBookmark={createBookmark}
         bookmark={bookmark}
