@@ -85,7 +85,8 @@ export default function App () {
     } finally {
       setBookmark({
         title: '',
-        url: ''
+        url: '', 
+        category: ''
       })
     }
   }

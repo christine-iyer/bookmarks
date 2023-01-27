@@ -44,11 +44,11 @@ export default function CreateBookmark ({
             onChange={handleChange} 
             placeholder='Category'
             name="category">
-              <option className={styles.family} value="Family">Family</option>
-              <option className={styles.friends} value="Friends">Friends</option>
-              <option className={styles.work} alue="Work">Work</option>
-              <option className={styles.code} value="Code">Code</option>
-              <option className={styles.misc} value="Misc">Misc</option>
+              <option value="Family">Family</option>
+              <option  value="Friends">Friends</option>
+              <option  alue="Work">Work</option>
+              <option  value="Code">Code</option>
+              <option  value="Misc">Misc</option>
             </select>
             </label>
 
