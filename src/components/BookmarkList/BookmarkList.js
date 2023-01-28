@@ -2,6 +2,7 @@ import Bookmark from '../Bookmark/Bookmark'
 import styles from './BookmarkList.module.scss'
 
 
+
 export default function BookmarkList ({
   bookmarks,
   updateBookmark,

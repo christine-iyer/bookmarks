@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react'
+import { useRef, useState,useEffect } from 'react'
 import styles from './Bookmark.module.scss'
+import setClass from '../../utilities/category-class'
 export default function Bookmark ({
   bookmark,
   updateBookmark,
@@ -7,9 +8,10 @@ export default function Bookmark ({
 }) {
   const [showInput, setShowInput] = useState(false)
   const inputRef = useRef(null)
+
   return (
-    <div className={styles.bookmark}>
-      <li className={styles.LItem}>
+    <div >
+      <li className={setClass(bookmark,styles)}>
         <h4 onClick={() => setShowInput(!showInput)}>{bookmark.title}</h4>
         <input
           ref={inputRef}

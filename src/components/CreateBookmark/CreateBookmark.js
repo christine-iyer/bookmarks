@@ -1,10 +1,13 @@
 import styles from './CreateBookmark.module.scss'
+
+
+
 export default function CreateBookmark ({
   createBookmark,
   bookmark,
   handleChange
-  
-}) {
+}
+) {
   return (
     <div className={styles.CreateBookmark}>
       <h2 className={styles.NewBookmark}>Create A Bookmark</h2>
@@ -38,7 +41,8 @@ export default function CreateBookmark ({
           </label>
 
           <label>Pick a category:
-            <select className={styles.category}
+            <select 
+            
             options={bookmark.category} 
             value={bookmark.category} 
             onChange={handleChange} 
@@ -46,7 +50,7 @@ export default function CreateBookmark ({
             name="category">
               <option value="Family">Family</option>
               <option  value="Friends">Friends</option>
-              <option  alue="Work">Work</option>
+              <option  value="Work">Work</option>
               <option  value="Code">Code</option>
               <option  value="Misc">Misc</option>
             </select>

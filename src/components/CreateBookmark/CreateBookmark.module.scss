@@ -1,18 +1,4 @@
-.friends {background-color: green;
 
-}
-.family {background-color: blue;
-
-}
-.work {background-color: yellow;
-
-}
-.code {background-color: red;
-
-}
-.misc {background-color: purple;
-
-}
 .button {
      background-color: var(--text-light);
      color: var(--text-light);
@@ -76,4 +62,21 @@ form {
 }
 input:focus {
      border-color: var(--orange);
+   }
+
+
+   .friends {background-color: green;
+
+   }
+   .family {background-color: blue;
+   
+   }
+   .work {background-color: yellow;
+   
+   }
+   .code {background-color: red;
+   
+   }
+   .misc {background-color: black;
+   
    }

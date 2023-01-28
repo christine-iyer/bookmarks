@@ -14,15 +14,29 @@
 }
 
 
-.LItem {
-    
-}
 
-.bookmark {
-     background-color: beige; 
-     width: 25%;
-     margin: 2px;
-     padding: 5px;
-     list-style: none;
-     align-items: center;
+
+// .bookmark {
+//      background-color: beige; 
+//      width: 25%;
+//      margin: 2px;
+//      padding: 5px;
+//      list-style: none;
+//      align-items: center;
+// }
+
+.friends {background-color: green;
+
+}
+.family {background-color: blue;
+
+}
+.work {background-color: yellow;
+
+}
+.code {background-color: red;
+
+}
+.misc {background-color: black;
+
 }
