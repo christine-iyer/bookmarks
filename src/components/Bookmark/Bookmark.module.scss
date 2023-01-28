@@ -1,6 +1,6 @@
 .button {
-     background-color: blueviolet;
-     color: greenyellow;
+     background-color: var(--text-light);
+     color: var(--text-dark);
      height: 3rem;
      padding: 1rem;
      font-size: 11px;
@@ -10,33 +10,61 @@
      text-align: justify;
      text-justify: inter-word;
      word-wrap: break-word;
+     box-shadow: darkblue;
+     list-style: none;
+     border: none;
+
+}
+.index > * {
+     flex:  1 1 auto;
+   }
+
+
+
+
+.bookmark {
+     background-color: beige; 
+     width: 25%;
+     margin: 2px;
+     padding: 5px;
+     list-style: none;
+     align-items: center;
+}
+
+.friends {
+     background-color: var(--yellow);
+     margin: 2px;
+     padding: 5px;
+     border-radius: 15%;
+     box-shadow: 2px 2px 2px 1px rgba(102, 101, 87, 0.2);
+}
+.family {
+     background-color: var(--blue);
+     margin: 2px;
+     padding: 5px;
+     border-radius: 5%;
+
+}
+.work {
+     background-color: var(--green);
+     margin: 2px;
+     padding: 5px;
+     border-radius: 5%;
+
+}
+.code {
+     background-color: var(--red);
+     margin: 2px;
+     padding: 5px;
+     border-radius: 5%;
+     font-style: italic;
+
+}
+.misc {
+     background-color: var(--turquoise);
+     margin: 2px;
+     padding: 5px;
+  border-radius: 5%;
 
 }
 
-
-
-
-// .bookmark {
-//      background-color: beige; 
-//      width: 25%;
-//      margin: 2px;
-//      padding: 5px;
-//      list-style: none;
-//      align-items: center;
-// }
-
-.friends {background-color: green;
-
-}
-.family {background-color: blue;
-
-}
-.work {background-color: yellow;
-
-}
-.code {background-color: red;
-
-}
-.misc {background-color: black;
-
-}

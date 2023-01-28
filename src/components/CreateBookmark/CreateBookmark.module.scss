@@ -32,7 +32,8 @@ form {
      font-size: 2vmin;
      display: flex;
      align-items: right;
-   }input {
+   }
+   input {
      padding: 1vmin;
      font-size: 2vmin;
      border: .1vmin solid var(--tan-3);
@@ -49,6 +50,7 @@ form {
           background-color: var(--pink);
           margin-left: 5%;
           padding: 3vmin;
+          height: 20%;
     background-color: var(--tan-1);
     border: .1vmin solid var(--tan-3);
     border-radius: 1vmin;
@@ -65,18 +67,4 @@ input:focus {
    }
 
 
-   .friends {background-color: green;
-
-   }
-   .family {background-color: blue;
    
-   }
-   .work {background-color: yellow;
-   
-   }
-   .code {background-color: red;
-   
-   }
-   .misc {background-color: black;
-   
-   }

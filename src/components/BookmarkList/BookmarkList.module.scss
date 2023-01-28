@@ -1,12 +1,17 @@
 .index {
      display: flex;
+    
      flex-direction: row;
      width: 80%;
+     list-style: none;
      // box-shadow: var(--pink)12px 12px 12px 10px ;
 
 }
 .div {
-     width: 100%;
-}
+     display: flex;
+   }
 
+   .div > * {
+     flex: 0 auto;
+   }
 

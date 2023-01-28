@@ -144,6 +144,26 @@ export default function App () {
     }
   }
 
+  // const archiveBookmark = async (id, updatedData) => {
+  //   try {
+  //     const response = await fetch(`/api/bookmarks/${id}`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${token}`
+  //       },
+  //       body: JSON.stringify(updatedData)
+  //     })
+  //     const data = await response.json()
+  //     const bookmarksCopy = [...bookmarks]
+  //     const index = bookmarksCopy.findIndex(bookmark => id === bookmark._id)
+  //     bookmarksCopy[index] = { ...bookmarksCopy[index], ...updatedData }
+  //     setBookmarks(bookmarksCopy)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
 
   useEffect(() => {
     const tokenData = localStorage.getItem('token')
