@@ -1,6 +1,7 @@
-import { useRef, useState,useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import styles from './Bookmark.module.scss'
 import setClass from '../../utilities/category-class'
+import  Button  from 'react-bootstrap/Button'
 export default function Bookmark ({
   bookmark,
   updateBookmark,
@@ -31,8 +32,10 @@ export default function Bookmark ({
         className={styles.button}
           onClick={() => deleteBookmark(bookmark._id)}
         >
-          Delete Me
+          Prains Me
         </button>
+       
+
       </li>
     </div>
   )

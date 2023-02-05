@@ -1,4 +1,5 @@
 import styles from './CreateBookmark.module.scss'
+import { FormText } from 'react-bootstrap'
 
 
 
@@ -12,7 +13,7 @@ export default function CreateBookmark ({
     <div className={styles.CreateBookmark}>
       <h2 className={styles.NewBookmark}>Create A Bookmark</h2>
       <div className={styles.container}>
-        <form 
+        <Form.Text 
           className={styles.form}
           onSubmit={(e) => {
             e.preventDefault()
@@ -56,11 +57,12 @@ export default function CreateBookmark ({
             </select>
             </label>
 
-          <input className={styles.button} 
+          <input
+           className={styles.button} 
           type='submit' 
           value='Create Bookmark' />
 
-        </form>
+        </Form.Text>
       </div>
      
     </div>
