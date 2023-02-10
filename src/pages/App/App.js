@@ -1,32 +1,34 @@
 import { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import Auth from '../../components/Auth/Auth'
-import CreateBookmark from '../../components/CreateBookmark/CreateBookmark'
-import BookmarkList from '../../components/BookmarkList/BookmarkList'
+import CreateBlog from '../../components/CreateBlog/CreateBlog'
+import BlogList from '../../components/BlogList/BlogList'
 import styles from './App.module.scss'
 
 require('../..')
 export default function App () {
   /*
-    Login, SignUp, CreateBookmark, ListBookmarksByUser, DeleteBookmark, UpdateBookmark
+    Login, SignUp, CreateBlog, ListBlogsByUser, DeleteBlog, UpdateBlog
     */
 
   const handleChangeAuth = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value })
   }
   const handleChange = (event) => {
-    setBookmark({ ...bookmark, [event.target.name]: event.target.value })
+    setBlog({ ...blog, [event.target.name]: event.target.value })
   }
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
     name: ''
   })
-  const [bookmark, setBookmark] = useState({
+  const [blog, setBlog] = useState({
     title: '',
-    url: ''
+    category:'',
+    url: '', 
+    body: ''
   })
-  const [bookmarks, setBookmarks] = useState([])
+  const [blogs, setBlogs] = useState([])
 
   const [token, setToken] = useState('')
   const login = async () => {
@@ -69,31 +71,31 @@ export default function App () {
  function logOut () {
     localStorage.removeItem('token')
   }
-  const createBookmark = async () => {
+  const createBlog = async () => {
     try {
-      const response = await fetch('/api/bookmarks', {
+      const response = await fetch('/api/blogs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ ...bookmark })
+        body: JSON.stringify({ ...blog })
       })
       const data = await response.json()
-      setBookmarks([data, ...bookmarks])
+      setBlogs([data, ...blogs])
     } catch (error) {
       console.error(error)
     } finally {
-      setBookmark({
+      setBlog({
         title: '',
         url: '', 
         category: ''
       })
     }
   }
-  const listBookmarksByUser = async () => {
+  const listBlogsByUser = async () => {
     try {
-      const response = await fetch('/api/users/bookmarks', {
+      const response = await fetch('/api/users/blogs', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -101,14 +103,14 @@ export default function App () {
         }
       })
       const data = await response.json()
-      setBookmarks(data)
+      setBlogs(data)
     } catch (error) {
       console.error(error)
     }
   }
-  const deleteBookmark = async (id) => {
+  const deleteBlog = async (id) => {
     try {
-      const response = await fetch(`/api/bookmarks/${id}`, {
+      const response = await fetch(`/api/blogs/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -116,17 +118,17 @@ export default function App () {
         }
       })
       const data = await response.json()
-      const bookmarksCopy = [...bookmarks]
-      const index = bookmarksCopy.findIndex(bookmark => id === bookmark._id)
-      bookmarksCopy.splice(index, 1)
-      setBookmarks(bookmarksCopy)
+      const blogsCopy = [...blogs]
+      const index = blogsCopy.findIndex(blog => id === blog._id)
+      blogsCopy.splice(index, 1)
+      setBlogs(blogsCopy)
     } catch (error) {
       console.error(error)
     }
   }
-  const updateBookmark = async (id, updatedData) => {
+  const updateBlog = async (id, updatedData) => {
     try {
-      const response = await fetch(`/api/bookmarks/${id}`, {
+      const response = await fetch(`/api/blogs/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -135,18 +137,18 @@ export default function App () {
         body: JSON.stringify(updatedData)
       })
       const data = await response.json()
-      const bookmarksCopy = [...bookmarks]
-      const index = bookmarksCopy.findIndex(bookmark => id === bookmark._id)
-      bookmarksCopy[index] = { ...bookmarksCopy[index], ...updatedData }
-      setBookmarks(bookmarksCopy)
+      const blogsCopy = [...blogs]
+      const index = blogsCopy.findIndex(blog => id === blog._id)
+      blogsCopy[index] = { ...blogsCopy[index], ...updatedData }
+      setBlogs(blogsCopy)
     } catch (error) {
       console.error(error)
     }
   }
 
-  // const archiveBookmark = async (id, updatedData) => {
+  // const archiveBlog = async (id, updatedData) => {
   //   try {
-  //     const response = await fetch(`/api/bookmarks/${id}`, {
+  //     const response = await fetch(`/api/blogs/${id}`, {
   //       method: 'PUT',
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -155,10 +157,10 @@ export default function App () {
   //       body: JSON.stringify(updatedData)
   //     })
   //     const data = await response.json()
-  //     const bookmarksCopy = [...bookmarks]
-  //     const index = bookmarksCopy.findIndex(bookmark => id === bookmark._id)
-  //     bookmarksCopy[index] = { ...bookmarksCopy[index], ...updatedData }
-  //     setBookmarks(bookmarksCopy)
+  //     const blogsCopy = [...blogs]
+  //     const index = blogsCopy.findIndex(blog => id === blog._id)
+  //     blogsCopy[index] = { ...blogsCopy[index], ...updatedData }
+  //     setBlogs(blogsCopy)
   //   } catch (error) {
   //     console.error(error)
   //   }
@@ -168,7 +170,7 @@ export default function App () {
   useEffect(() => {
     const tokenData = localStorage.getItem('token')
     if (tokenData && tokenData !== 'null' && tokenData !== 'undefined') {
-      listBookmarksByUser()
+      listBlogsByUser()
     }
   }, [token])
 
@@ -201,15 +203,15 @@ export default function App () {
         token={token}
       />
       
-      <CreateBookmark
-        createBookmark={createBookmark}
-        bookmark={bookmark}
+      <CreateBlog
+        createBlog={createBlog}
+        blog={blog}
         handleChange={handleChange}
       />
-      <BookmarkList
-        bookmarks={bookmarks}
-        deleteBookmark={deleteBookmark}
-        updateBookmark={updateBookmark}
+      <BlogList
+        blogs={blogs}
+        deleteBlog={deleteBlog}
+        updateBlog={updateBlog}
       />
 
     </div>

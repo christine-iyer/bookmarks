@@ -1,51 +1,51 @@
 require('dotenv').config()
-const Bookmark = require('../../models/bookmark')
+const Blog = require('../../models/blog')
 const User = require('../../models/user')
 
-// delete bookmark
-// create bookmark
-// update bookmark
+// delete blog
+// create blog
+// update blog
 
-const destroyBookmark = async (req, res, next) => {
+const destroyBlog = async (req, res, next) => {
   try {
-    const deletedBookmark = await Bookmark.findByIdAndDelete(req.params.id)
-    res.locals.data.bookmark = deletedBookmark
+    const deletedBlog = await Blog.findByIdAndDelete(req.params.id)
+    res.locals.data.blog = deletedBlog
     next()
   } catch (error) {
     res.status(400).json({ msg: error.message })
   }
 }
 
-const updateBookmark = async (req, res, next) => {
+const updateBlog = async (req, res, next) => {
   try {
-    const updatedBookmark = await Bookmark.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    res.locals.data.bookmark = updatedBookmark
+    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.locals.data.blog = updatedBlog
     next()
   } catch (error) {
     res.status(400).json({ msg: error.message })
   }
 }
 
-const createBookmark = async (req, res, next) => {
+const createBlog = async (req, res, next) => {
   try {
-    const createdBookmark = await Bookmark.create(req.body)
+    const createdBlog = await Blog.create(req.body)
     const user = await User.findOne({ email: res.locals.data.email })
-    user.bookmarks.addToSet(createdBookmark)
+    user.blogs.addToSet(createdBlog)
     await user.save()
-    res.locals.data.bookmark = createdBookmark
+    res.locals.data.blog = createdBlog
     next()
   } catch (error) {
     res.status(400).json({ msg: error.message })
   }
 }
 
-const respondWithBookmark = (req, res) => {
-  res.json(res.locals.data.bookmark)
+const respondWithBlog = (req, res) => {
+  res.json(res.locals.data.blog)
 }
 
 module.exports = {
-  destroyBookmark,
-  updateBookmark,
-  createBookmark,
-  respondWithBookmark
+  destroyBlog,
+  updateBlog,
+  createBlog,
+  respondWithBlog
 }

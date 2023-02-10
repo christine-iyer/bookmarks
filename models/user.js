@@ -8,7 +8,7 @@ const userSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, trim: true, lowercase: true, required: true },
   password: { type: String, trim: true, minLength: 5, required: true },
-  bookmarks: [{ type: Schema.Types.ObjectId, ref: 'Bookmark' }]
+  blogs: [{ type: Schema.Types.ObjectId, ref: 'Blog' }]
 }, {
   timestamps: true,
   toJSON: {

@@ -1,19 +1,19 @@
 import { useRef, useState, useEffect } from 'react'
-import styles from './Bookmark.module.scss'
+import styles from './Blog.module.scss'
 import setClass from '../../utilities/category-class'
 import  Button  from 'react-bootstrap/Button'
-export default function Bookmark ({
-  bookmark,
-  updateBookmark,
-  deleteBookmark
+export default function Blog ({
+  blog,
+  updateBlog,
+  deleteBlog
 }) {
   const [showInput, setShowInput] = useState(false)
   const inputRef = useRef(null)
 
   return (
     <div >
-      <li className={setClass(bookmark,styles)}>
-        <h4 onClick={() => setShowInput(!showInput)}>{bookmark.title}</h4>
+      <li className={setClass(blog,styles)}>
+        <h4 onClick={() => setShowInput(!showInput)}>{blog.title}</h4>
         <input
           ref={inputRef}
           style={{ display: showInput ? 'block' : 'none' }}
@@ -21,16 +21,16 @@ export default function Bookmark ({
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               const title = inputRef.current.value
-              updateBookmark(bookmark._id, { title })
+              updateBlog(blog._id, { title })
               setShowInput(false)
             }
           }}
-          defaultValue={bookmark.title}
+          defaultValue={blog.title}
         />
-        <a href={bookmark.url} target='_blank' rel='noreferrer'> {bookmark.title}</a>
+        <a href={blog.url} target='_blank' rel='noreferrer'> {blog.title}</a>
         <button
         className={styles.button}
-          onClick={() => deleteBookmark(bookmark._id)}
+          onClick={() => deleteBlog(blog._id)}
         >
           Prains Me
         </button>

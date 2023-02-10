@@ -33,11 +33,11 @@ const login = async (req, res, next) => {
   }
 }
 
-const getBookmarksByUser = async (req, res, next) => {
+const getBlogsByUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: res.locals.data.email }).populate('bookmarks').sort('bookmarks.createdAt').exec()
-    const bookmarks = user.bookmarks
-    res.locals.data.bookmarks = bookmarks
+    const user = await User.findOne({ email: res.locals.data.email }).populate('blogs').sort('blogs.createdAt').exec()
+    const blogs = user.blogs
+    res.locals.data.blogs = blogs
     next()
   } catch (error) {
     res.status(400).json({ msg: error.message })
@@ -52,8 +52,8 @@ const respondWithUser = (req, res) => {
   res.json(res.locals.data.user)
 }
 
-const respondWithBookmarks = (req, res) => {
-  res.json(res.locals.data.bookmarks)
+const respondWithBlogs = (req, res) => {
+  res.json(res.locals.data.blogs)
 }
 function logOut () {
   localStorage.removeItem('token')
@@ -62,9 +62,9 @@ function logOut () {
 module.exports = {
   signUp,
   login,
-  getBookmarksByUser,
+  getBlogsByUser,
   respondWithToken,
-  respondWithBookmarks,
+  respondWithBlogs,
   respondWithUser,
   logOut
 }
